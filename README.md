@@ -8,47 +8,6 @@ A small Notes application with a Vue 3 frontend (Vite + Tailwind) and an Express
 - Responsive UI with Tailwind CSS
 - Small SQLite backend for persistence
 
-## Prerequisites
-
-- Node.js (>=16) and npm
-- Git
-
-## Setup
-
-1. Clone the repo (or if already local, skip):
-
-```bash
-git clone https://github.com/YOUR-USERNAME/NotesApp.git
-cd NotesApp
-```
-
-2. Install backend dependencies and start backend:
-
-```powershell
-cd backend
-npm install
-node index.js
-# Backend listens on http://localhost:3000
-```
-
-3. Install frontend dependencies and start dev server:
-
-```powershell
-cd ../frontend
-npm install
-npm run dev
-# Frontend dev server defaults to http://localhost:5173
-```
-
-Open the frontend URL in your browser and the app should connect to the backend at `http://localhost:3000`.
-
-## Scripts
-
-- `backend`: run `node index.js` to start the Express server.
-- `frontend`: run `npm run dev` inside `frontend/` (Vite dev server).
-
-
-
 ## Development Process
 
 I used AI tools to speed up design and implementation. Below are examples showing prompts, AI outputs (abridged), and how I used them.
@@ -131,5 +90,48 @@ The negative translate utility cannot be used with @apply in some setups. Use ex
 - Why the changes:
 
   - This avoids Tailwind's parser limitation with `@apply` and negative utilities while keeping the intended animation.
+
+
+## Prerequisites
+
+- Node.js (>=16) and npm
+- Git
+
+## Setup
+
+1. Clone the repo (or if already local, skip):
+
+```bash
+git clone https://github.com/YOUR-USERNAME/NotesApp.git
+cd NotesApp
+```
+
+2. Install backend dependencies and start backend:
+
+```powershell
+cd backend
+npm install
+node index.js
+# Backend listens on http://localhost:3000
+```
+
+3. Install frontend dependencies and start dev server:
+
+```powershell
+cd ../frontend
+npm install
+npm run dev
+# Frontend dev server defaults to http://localhost:5173
+```
+
+Open the frontend URL in your browser and the app should connect to the backend at `http://localhost:3000`.
+
+## Scripts
+
+- `backend`: run `node index.js` to start the Express server.
+- `frontend`: run `npm run dev` inside `frontend/` (Vite dev server).
+
+
+
 
 
