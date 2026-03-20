@@ -1,12 +1,14 @@
-const API_URL = process.env.RENDER_URL;
+const API_URL = import.meta.env.VITE_RENDER_URL;
 
+// GET notes
 export async function fetchNotes() {
-  const res = await fetch(API_URL);
+  const res = await fetch(`${API_URL}/notes`);
   return res.json();
 }
 
+// CREATE note
 export async function createNote(note) {
-  const res = await fetch(API_URL, {
+  const res = await fetch(`${API_URL}/notes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -16,8 +18,9 @@ export async function createNote(note) {
   return res.json();
 }
 
+// DELETE note
 export async function deleteNote(id) {
-  const res = await fetch(`${API_URL}/${id}`, {
+  const res = await fetch(`${API_URL}/notes/${id}`, {
     method: "DELETE"
   });
 
@@ -26,8 +29,9 @@ export async function deleteNote(id) {
   }
 }
 
+// UPDATE note
 export async function updateNote(id, note) {
-  const res = await fetch(`${API_URL}/${id}`, {
+  const res = await fetch(`${API_URL}/notes/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
@@ -41,4 +45,3 @@ export async function updateNote(id, note) {
 
   return res.json();
 }
-

@@ -29,7 +29,7 @@
       <transition-group name="list" tag="ul" class="notes-container">
         <NoteItem
           v-for="note in notes"
-          :key="note.id"
+          :key="note._id"
           :note="note"
           @deleted="onNoteDeleted"
           @updated="onNoteUpdated"
@@ -72,10 +72,10 @@ export default {
       this.newNote = { title: "", content: "" };
     },
     onNoteDeleted(id) {
-      this.notes = this.notes.filter(note => note.id !== id);
+      this.notes = this.notes.filter(note => note._id !== id);
     },
     onNoteUpdated(updatedNote) {
-      const index = this.notes.findIndex(n => n.id === updatedNote.id);
+      const index = this.notes.findIndex(n => n._id === updatedNote._id);
       if (index !== -1) this.notes[index] = updatedNote;
     },
   },

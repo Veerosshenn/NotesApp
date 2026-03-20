@@ -51,14 +51,14 @@ export default {
     },
     async saveEdit() {
       if (!this.editNote.title || !this.editNote.content) return;
-      const updated = await updateNote(this.note.id, this.editNote);
+      const updated = await updateNote(this.note._id, this.editNote);
       this.$emit("updated", updated);
       this.editMode = false;
     },
     async deleteNote() {
       if (!confirm("Delete this note?")) return;
-      await deleteNote(this.note.id);
-      this.$emit("deleted", this.note.id);
+      await deleteNote(this.note._id);
+      this.$emit("deleted", this.note._id);
     },
   },
 };
