@@ -1,79 +1,61 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db");
+const note = require("../models/Note");
 
-
-router.get("/", (req, res) => {
-  db.all("SELECT * FROM notes ORDER BY id DESC", [], (err, rows) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    res.json(rows);
-  });
+// GET all notes
+router.get("/", async (req, res) => {
+  try {
+    const notes = await Note.find().sort({ createdAt: -1 });
+    res.json(notes);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 
-router.post("/", (req, res) => {
+// CREATE note
+router.post("/", async (req, res) => {
   const { title, content } = req.body;
 
   if (!title || !content) {
     return res.status(400).json({ error: "Title and content are required" });
   }
 
-  db.run(
-    "INSERT INTO notes (title, content) VALUES (?, ?)",
-    [title, content],
-    function (err) {
-      if (err) {
-        return res.status(500).json({ error: err.message });
-      }
-
-      res.status(201).json({
-        id: this.lastID,
-        title,
-        content
-      });
-    }
-  );
+  try {
+    const note = new Note({ title, content });
+    await note.save();
+    res.status(201).json(note);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 
-router.put("/:id", (req, res) => {
+// UPDATE note
+router.put("/:id", async (req, res) => {
   const { title, content } = req.body;
 
-  if (!title || !content) {
-    return res.status(400).json({ error: "Title and content are required" });
-  }
-  
-  db.run(
-    "UPDATE notes SET title = ?, content = ? WHERE id = ?",
-    [title, content, req.params.id],
-    function (err) {
-      if (err) {
-        return res.status(500).json({ error: err.message });
-      }
+  try {
+    const updated = await Note.findByIdAndUpdate(
+      req.params.id,
+      { title, content },
+      { new: true }
+    );
 
-      res.json({
-        id: Number(req.params.id),
-        title,
-        content
-      });
-    }
-  );
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-
-router.delete("/:id", (req, res) => {
-  db.run(
-    "DELETE FROM notes WHERE id = ?",
-    [req.params.id],
-    function (err) {
-      if (err) {
-        return res.status(500).json({ error: err.message });
-      }
-      res.sendStatus(200);
-    }
-  );
+// DELETE note
+router.delete("/:id", async (req, res) => {
+  try {
+    await Note.findByIdAndDelete(req.params.id);
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 module.exports = router;
