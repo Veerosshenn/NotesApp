@@ -1,4 +1,4 @@
-const API_URL = "https://notesapp-70kn.onrender.com";
+const API_URL = import.meta.env.VITE_RENDER_URL;
 
 // GET notes
 export async function fetchNotes() {
