@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/notes";
+const API_URL = process.env.RENDER_URL;
 
 export async function fetchNotes() {
   const res = await fetch(API_URL);
