@@ -1,12 +1,15 @@
 # NotesApp
 
-A small Notes application with a Vue 3 frontend (Vite + Tailwind) and an Express/SQLite backend.
+A small Notes application with a Vue 3 frontend (Vite + Tailwind) and an Express/MongoDB backend.
 
 ## Features
 
 - Create, edit and delete notes
+- Add tags to notes and filter by tag
+- Markdown preview mode while editing note content
+- Pin notes with backend persistence (syncs across devices)
 - Responsive UI with Tailwind CSS
-- Small SQLite backend for persistence
+- MongoDB backend for persistence
 
 ## Development Process
 
