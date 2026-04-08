@@ -85,7 +85,7 @@ router.put("/:id", async (req, res) => {
     const updated = await Note.findByIdAndUpdate(
       req.params.id,
       updates,
-      { new: true, runValidators: true }
+      { returnDocument: "after", runValidators: true }
     );
 
     if (!updated) {
