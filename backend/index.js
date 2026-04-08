@@ -28,6 +28,17 @@ app.use(cors(corsOptions));
 app.options(/.*/, cors(corsOptions));
 app.use(express.json());
 
+app.get("/", (req, res) => {
+    res.json({
+        status: "ok",
+        message: "Notes API is running",
+    });
+});
+
+app.get("/health", (req, res) => {
+    res.json({ status: "ok" });
+});
+
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("Connected to MongoDB"))
     .catch((err) => console.error("Error connecting to MongoDB:", err));
