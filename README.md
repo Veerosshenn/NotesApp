@@ -133,6 +133,8 @@ Open the frontend URL in your browser and the app should connect to the backend 
 
 - `backend`: run `node index.js` to start the Express server.
 - `frontend`: run `npm run dev` inside `frontend/` (Vite dev server).
+- `backend seed`: run `npm run seed` inside `backend/` to add realistic demo notes.
+- `backend seed:reset`: run `npm run seed:reset` inside `backend/` to clear notes first, then reseed.
 
 
 
