@@ -1,4 +1,9 @@
-const API_URL = import.meta.env.VITE_RENDER_URL || "http://localhost:3000";
+const RAW_API_URL = import.meta.env.VITE_RENDER_URL || "http://localhost:3000";
+const API_URL = RAW_API_URL.replace(/\/+$/, "");
+
+function buildUrl(path) {
+  return `${API_URL}${path.startsWith("/") ? path : `/${path}`}`;
+}
 
 async function parseResponse(res, defaultMessage) {
   if (!res.ok) {
@@ -17,13 +22,13 @@ async function parseResponse(res, defaultMessage) {
 
 // GET notes
 export async function fetchNotes() {
-  const res = await fetch(`${API_URL}/notes`);
+  const res = await fetch(buildUrl("/notes"));
   return parseResponse(res, "Failed to fetch notes");
 }
 
 // CREATE note
 export async function createNote(note) {
-  const res = await fetch(`${API_URL}/notes`, {
+  const res = await fetch(buildUrl("/notes"), {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -35,7 +40,7 @@ export async function createNote(note) {
 
 // DELETE note
 export async function deleteNote(id) {
-  const res = await fetch(`${API_URL}/notes/${id}`, {
+  const res = await fetch(buildUrl(`/notes/${id}`), {
     method: "DELETE"
   });
   await parseResponse(res, "Failed to delete note");
@@ -43,7 +48,7 @@ export async function deleteNote(id) {
 
 // UPDATE note
 export async function updateNote(id, note) {
-  const res = await fetch(`${API_URL}/notes/${id}`, {
+  const res = await fetch(buildUrl(`/notes/${id}`), {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
